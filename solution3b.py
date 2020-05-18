@@ -7,13 +7,41 @@ def solution(n):
     Input: String n
     Output: Minimum number of "steps" to reach 1.
     '''
-    return solution_d(n)
+    n = int(n)
+    return solution_f(n)
+
+# Same as e but with iteration
+
+
+def solution_f(n):
+    num_steps = 0
+    while (n > 1):
+        # Most significant digit is 0
+        if (n % 2 == 0):
+            n = n // 2
+        # n == 3 or two last significant digits are 01
+        elif (n == 3 or n % 4 == 1):
+            n = n - 1
+        else:
+            n = n + 1
+        num_steps += 1
+    return num_steps
 
 
 def solution_e(n):
-    num = float(int(n))
-    if (num == 1):
-        return str(0)
+    # Base case
+    if (n == 1):
+        return 0
+    # Most significant digit is 0
+    elif (n % 2 == 0):
+        new_n = n // 2
+    # n == 3 or two last significant digits are 01
+    elif (n == 3 or n % 4 == 1):
+        new_n = n - 1
+    else:
+        new_n = n + 1
+
+    return 1 + solution_e(new_n)
 
 
 def solution_d(n):
